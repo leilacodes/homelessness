@@ -1,20 +1,17 @@
-source('functions/setup.R')
-library(readr)
-library(dplyr)
-
 list.files('data')
+# shell.exec(file.path(getwd(), sheltered_path))
+# shell.exec(file.path(getwd(), unsheltered_path))
 
-sheltered_path <- 'data/sheltered_data_aggregate_shared.csv'
-unsheltered_path <- 'data/unsheltered_data_aggregate_shared.csv'
+# Import sheltered data from 2016 and 20s17
 
-shell.exec(file.path(getwd(), sheltered_path))
-shell.exec(file.path(getwd(), unsheltered_path))
+s16 <- read_csv('data/2016_Sheltered.csv',
+                col_types = c('idccccciccccciiicciiiiiiiiiiiiiiicic')) %>%
+  janitor::clean_names()
 
-sheltered <- read_csv(sheltered_path)
-unsheltered <- read_csv(unsheltered_path)
+glimpse(s16)
 
-glimpse(sheltered)
-glimpse(unsheltered)
+s17 <- read_csv('data/2017_Sheltered.csv', 
+                col_types =cols(Application_ID = col_character())) %>%
+  janitor::clean_names()
 
-dim(sheltered)
-dim(unsheltered)
+glimpse(s17)
