@@ -58,7 +58,12 @@ graph_freqs <- function(dset,
   print(varlist)
   
   # Create a graph object for each variable
-  graphlist <- map(varlist, function(x) assign(x, ggplot(data = dset, aes_string(x = x)) + geom_bar(), envir = .GlobalEnv))
+  graphlist <- map(varlist, 
+                   function(x) assign(x,
+                                      ggplot(data = dset,
+                                             aes_string(x = x)) + geom_bar(),
+                                      envir = .GlobalEnv
+                                      ))
   
   vargroups <- split(varlist, ceiling(seq_along(varlist)/(nrows*ncols)))
   
@@ -68,7 +73,6 @@ graph_freqs <- function(dset,
                                 glue(", ncol = {ncols})")))
   
   map(varstrings, .f = function(x) eval(parse(text = x)))
-  
 }
 
 # Sort columns alphabetically
